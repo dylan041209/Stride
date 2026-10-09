@@ -1,5 +1,17 @@
 'use strict';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function setTheme(dark){
+document.documentElement.dataset.theme=dark?'dark':'light';
+const button=$('#theme-toggle');
+button.textContent=dark?'☀ Light mode':'☾ Dark mode';
+button.setAttribute('aria-pressed',String(dark));
+button.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+try{localStorage.setItem('stride.theme',dark?'dark':'light');}catch(e){}
+}
+setTheme(document.documentElement.dataset.theme==='dark');
+$('#theme-toggle').onclick=()=>setTheme(document.documentElement.dataset.theme!=='dark');
+
 const subjects=['Criminology','Business','IT'],activities=['Flashcards','Past papers','Note taking','Homework'],colours=['red','green','blue'],key='stride.v1';
 const fresh=()=>({version:1,sessions:[],courses:[],tasks:[],plans:[],topics:[],rewards:[],goal:300});
 let data=fresh();try{const saved=localStorage.getItem(key);if(saved)data=validate(JSON.parse(saved));}catch(e){$('#storage').textContent='Could not load saved data; import a backup if needed.';}
