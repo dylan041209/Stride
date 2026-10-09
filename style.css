@@ -5,3 +5,31 @@ html{scrollbar-gutter:stable}
 dialog{max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain}
 @media(min-width:901px){aside{overflow-y:auto}.aside-foot{position:static;margin-top:40px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Theme controls and readable dark surfaces. */
+:root{color-scheme:light}
+.header-actions{display:flex;gap:10px;align-items:center}
+button:focus-visible,a:focus-visible,.file:focus-within{outline:3px solid #b49bee;outline-offset:3px}
+html[data-theme="dark"]{color-scheme:dark;background:#171925;color:#e9eaf5;--purple:#b49aef}
+[data-theme="dark"] aside{background:#1e2130;border-color:#35384b}
+[data-theme="dark"] .card,[data-theme="dark"] dialog{background:#232636;border-color:#383c50;color:#e9eaf5}
+[data-theme="dark"] .hero{background:linear-gradient(110deg,#352c50,#443039)}
+[data-theme="dark"] .muted,[data-theme="dark"] footer,[data-theme="dark"] .empty,[data-theme="dark"] .aside-foot{color:#b9bbcf}
+[data-theme="dark"] .eyebrow{color:#c1aedf}
+[data-theme="dark"] nav a{color:#c6c7db}
+[data-theme="dark"] nav a.active,[data-theme="dark"] nav a:hover{background:#37304f;color:#d4c2ff}
+[data-theme="dark"] .red{background:#3d272f;border-color:#75434e;--accent:#ff95a4}
+[data-theme="dark"] .green{background:#24392f;border-color:#3e6752;--accent:#8adbaa}
+[data-theme="dark"] .blue{background:#25344b;border-color:#3d5d86;--accent:#92beff}
+[data-theme="dark"] .course{background:#352c48;border-color:#615079;--accent:#c7a5ff}
+[data-theme="dark"] .bar{background:#414357}
+[data-theme="dark"] .pill{background:#ffffff12}
+[data-theme="dark"] .quiet{background:#3b3e52;color:#f0edff}
+[data-theme="dark"] button:not(.quiet){color:#211b32}
+[data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea{background:#191c29;border-color:#51566f;color:#edf0ff}
+[data-theme="dark"] input::placeholder,[data-theme="dark"] textarea::placeholder{color:#a8adc5}
+[data-theme="dark"] .entry{border-color:#393e53}
+[data-theme="dark"] .day{background:#1c2030}
+[data-theme="dark"] #toast{background:#e2d3ff;color:#251d37}
+[data-theme="dark"] .locked{opacity:1}
+@media(max-width:600px){header{flex-wrap:wrap}.header-actions{width:100%;flex-wrap:wrap}.header-actions button{flex:1}}
