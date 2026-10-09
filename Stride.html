@@ -34,6 +34,12 @@ html[data-theme="dark"]{color-scheme:dark;background:#171925;color:#e9eaf5;--pur
 [data-theme="dark"] #toast{background:#e2d3ff;color:#251d37}
 [data-theme="dark"] .locked{opacity:1}
 @media(max-width:600px){header{flex-wrap:wrap}.header-actions{width:100%;flex-wrap:wrap}.header-actions button{flex:1}}
+
+/* Give subject navigation and topic actions their own breathing room. */
+#content > a.link[href="#subjects"]{display:inline-flex;align-items:center;min-height:40px;padding:6px 0;margin-bottom:18px}
+#topic-form{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin:18px 0 24px}
+#topic-form input:not([type="hidden"]){width:100%;min-width:0}
+#topic-form button{margin:0;min-height:44px}
 </style></head><body>
 <aside><a class="brand" href="#dashboard">✦ Stride</a><p class="muted">Small steps. Big possibilities.</p><nav id="nav"></nav><div class="aside-foot">Your own pace.<br>Your next chapter.</div></aside>
 <main><header><div><span class="eyebrow">YOUR PERSONAL STUDY SPACE</span><h1 id="title">Dashboard</h1></div><div class="header-actions"><button id="theme-toggle" class="quiet" type="button" aria-pressed="false">☾ Dark mode</button><button id="log">＋ Log study</button></div></header><div id="content"></div><footer><span id="storage">Saved on this browser</span><button class="quiet" id="export">Export backup</button><label class="quiet file">Import backup<input type="file" id="import" accept=".json,application/json" hidden></label></footer></main>
