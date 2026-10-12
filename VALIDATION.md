@@ -6,6 +6,7 @@ Passing checks:
 
 - Anonymous direct navigation cannot display the tracker.
 - Signup rejects missing uppercase, lowercase, digit, symbol and insufficient length.
+- Invalid sign-in credentials show a prominent alert, preserve typed values, associate the email/password fields with the warning, and keep the tracker inaccessible. The alert receives focus, clears on editing and is visible on a 390px phone viewport. Connection and rate-limit errors have distinct guidance and do not mark the credentials as incorrect. Alert colours were visually reviewed in both theme states.
 - Signup waits for email verification; it does not bypass onboarding as the earlier design prototype did.
 - All 21 subjects appear, including Politics; exactly three are required.
 - Onboarding resumes after a reload and goal selection retains scroll position at 746 × 668.
