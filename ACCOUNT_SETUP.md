@@ -20,10 +20,12 @@ To apply the exact policy and URLs together, run `scripts/configure-supabase.mjs
 node scripts/configure-supabase.mjs https://dylan041209.github.io/Stride/
 ```
 
-If you configure settings manually, set Authentication > URL Configuration > Site URL to the hosted address. Allow both exact callback URLs:
+If you configure settings manually, set Authentication > URL Configuration > Site URL to the hosted address. Allow all four exact callback URLs:
 
 - `https://dylan041209.github.io/Stride/?flow=confirm`
 - `https://dylan041209.github.io/Stride/?flow=recovery`
+- `https://dylan041209.github.io/Stride/index.html?flow=confirm`
+- `https://dylan041209.github.io/Stride/index.html?flow=recovery`
 
 Replace the example address with the real deployment address if it differs. Add matching localhost callback URLs separately for development. The website derives its callback address from its current URL. Auth email templates must preserve the configured redirect rather than hard-code an old domain.
 
@@ -34,6 +36,8 @@ Supabase's default email service is for development, only sends to project-team 
 ## 4. Test the branch before switching the live site
 
 Serve this directory over HTTP on localhost, or publish it to a separate HTTPS test address and add its callback URLs above. The `main` branch and existing published tracker remain unchanged. Opening account-enabled index.html directly from a ZIP will show a hosting explanation instead of attempting email sign-in.
+
+The current local account preview uses `http://127.0.0.1:8837/`. Add `http://127.0.0.1:8837/?flow=confirm` and `http://127.0.0.1:8837/?flow=recovery` to the redirect allow list for testing; keep the hosted Site URL. These addresses require the preview server to be running on the same computer where the email link is opened.
 
 Create your account, verify the email, choose exactly three subjects, and set or skip a goal. Test a session, exam score, achievement, subject colour change, export and import. Reload to check persistence, then sign in on a second device. Also test a second account and verify it cannot read or write the first account's row.
 
@@ -49,10 +53,20 @@ The account branch's `Stride.html` forwards to the account-enabled index page. K
 
 Keep the same Supabase project. Change hosting/DNS, then set the new Site URL and exact confirmation/recovery callback URLs. Sign in again on the new domain and test new verification and reset emails. Online records follow the account; old browser-only records need export/import.
 
+Domain-change reminder recorded at the user's request on 12 October 2026. The current setup instructions use `https://dylan041209.github.io/Stride/`; the dashboard configuration has not been independently verified. When a new website URL is chosen:
+
+- Update Supabase > Authentication > URL Configuration > Site URL to the new hosted address.
+- Replace or supplement all four redirect entries above with the corresponding addresses on the new URL, including the `index.html` variants. Keep the old entries only while they are needed for the transition, then remove them.
+- Check that authentication email templates use the current redirect address rather than a hard-coded old domain.
+- Once Google sign-in is configured, update its authorized JavaScript origins and any website/branding URLs. Its Supabase callback address stays `https://vmzjurdxjyshlcubxcju.supabase.co/auth/v1/callback` while the same Supabase project is used.
+- Test email verification, password reset, sign-in and saved study data on the new address before advertising it. Test Google sign-in as well if enabled by then.
+
+Google sign-in setup is currently deferred until the user has a contact email ready.
+
 ## Validation status
 
 Browser tests against a simulated Supabase client cover anonymous route guards, signup rules, verification gating, 21 subjects, resumed onboarding, goal scroll stability, dynamic subjects, exam scoring/graphs, achievements, saved colours, backup migration, conflict protection, account switching and recovery routing.
 
-The SQL, real email delivery, live password policy, database isolation and actual cross-device saving still need verification against your configured Supabase project. This is a testing branch, not a completed public launch. Terms and privacy-policy pages need owner-reviewed content before public registration is advertised.
+The user reported a passing result from supabase/verify-access.sql on 12 October 2026. Real email delivery, live password policy, isolation using actual signed-in accounts and cross-device saving still need verification against the configured Supabase project. This is a testing branch, not a completed public launch. Terms and privacy-policy pages need owner-reviewed content before public registration is advertised.
 
 Official references: https://supabase.com/docs/guides/auth/redirect-urls and https://supabase.com/docs/guides/database/postgres/row-level-security
