@@ -205,3 +205,10 @@ details summary{cursor:pointer;padding:8px 0;font-weight:600}
 [data-theme="dark"] .plan-remove:hover{background:#ffffff24}
 @media(max-width:1300px){.planner-week{grid-template-columns:1fr}.planner-day{display:grid;grid-template-columns:66px minmax(0,1fr);gap:14px;min-height:0;padding:16px}.planner-day-heading{display:block;min-height:0;margin:0}.planner-day-heading time{margin-bottom:8px}.planner-day-sessions{grid-template-columns:repeat(2,minmax(0,1fr))}.plan-subject{font-size:12px;margin-right:26px}.plan-topic{font-size:14px}.planned-session{padding:14px}.planner-empty{grid-column:1/-1;align-self:center;margin:0}.plan-remove{width:30px;min-height:30px}.all-plan-list{grid-template-columns:1fr}}
 @media(max-width:600px){.planner-calendar{padding:20px}.planner-day{grid-template-columns:44px minmax(0,1fr);padding:12px;gap:10px}.planner-day-sessions{grid-template-columns:1fr}.planner-today-label{display:inline-block;padding:4px}.planner-top{gap:12px}.planner-top h2{font-size:23px}.plan-summary{padding:16px}}
+
+.site-legal-footer{margin:0 0 0 242px;max-width:1440px;padding:0 40px 30px;gap:16px;font-size:12px}
+.site-legal-footer nav{display:flex;flex-wrap:wrap;gap:14px;margin:0}
+.site-legal-footer nav a{padding:0;border-radius:0;color:var(--purple);font-size:12px;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.site-legal-footer>span{margin:0 0 0 auto;color:#727888}
+[data-theme="dark"] .site-legal-footer>span{color:#b9bbcf}
+@media(max-width:900px){.site-legal-footer{margin:0;padding:0 23px 26px}.site-legal-footer>span{margin-left:0}}

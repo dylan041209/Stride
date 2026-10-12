@@ -23,6 +23,9 @@ Passing checks:
 - Reward cards have been visually checked in light mode, dark mode and at a 390px phone width without horizontal page overflow.
 - Deadline cards have been visually reviewed with simulated records in light mode, dark mode and at a 390px phone width. The review includes upcoming, overdue and completed deadlines, a date tile, subject/type/priority labels and completion that persists after reload. The dashboard uses the same card renderer.
 - The planner calendar has been visually reviewed with simulated sessions in light/dark themes and at desktop, laptop and 390px phone widths. Sessions use compact cards with separate subject, topic, duration and remove controls. Narrower screens use stacked day rows. Creating and removing a session persists through reload, and the full planned-session list uses the same card renderer.
+- Terms and Privacy drafts load anonymously with JavaScript disabled, have working contents links and explicit unresolved placeholders, and request no external services while read. Signup/sign-in and a static footer expose both documents; opening them preserves the account form in its tab. Desktop, 390px mobile and system-dark layouts were visually reviewed. Mobile pages have no horizontal overflow; print styles retain the draft notice and omit navigation.
+
+The legal checks verify access, draft status, links and presentation. They do not establish enforceability or data-protection compliance. The current pages do not record acceptance or implement the proposed retention periods; LAUNCH.md lists the unresolved facts and processes.
 
 The user reported that supabase/verify-access.sql passed against their project on 12 October 2026. That transaction checks isolation, verified access, blocked direct writes and revision conflicts with temporary users, then rolls them back.
 

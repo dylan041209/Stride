@@ -19,3 +19,11 @@
 [data-theme="dark"] .auth-page .auth-error-icon{background:#ff9fb6;color:#351b28}
 [data-theme="dark"] .auth-page .auth-error:focus{outline-color:#ff9fb64d}
 @media(max-width:600px){.auth-page .auth-error{padding:14px 12px;gap:10px}.auth-page .auth-error strong{font-size:14px}}
+
+.auth-page .site-legal-footer{max-width:1190px;margin:25px auto 0;padding:20px 35px 24px;border-top:1px solid var(--border)}
+.auth-page .site-legal-footer nav{display:flex;flex-wrap:wrap;gap:14px;margin:0}
+.auth-page .site-legal-footer nav a{font-size:12px;color:var(--purple);text-decoration:underline;padding:0;background:transparent}
+.auth-page .site-legal-footer>span{color:var(--muted);font-size:11px}
+.auth-page .form-card>p.auth-legal-note{font-size:12px;line-height:1.7;color:var(--muted);margin:16px 0 20px}
+.auth-page .auth-legal-note a{text-decoration:underline;text-underline-offset:3px;font-size:12px}
+@media(max-width:600px){.auth-page .site-legal-footer{margin:25px 22px 0;padding:18px 0;gap:12px}.auth-page .site-legal-footer>span{width:100%;margin-left:0}}
