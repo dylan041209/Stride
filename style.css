@@ -63,3 +63,19 @@ details summary{cursor:pointer;padding:8px 0;font-weight:600}
 [data-theme="dark"] .chart-grid{stroke:#51566f}
 [data-theme="dark"] .exam-chart .red{--accent:#ff95a4}[data-theme="dark"] .exam-chart .green{--accent:#8adbaa}[data-theme="dark"] .exam-chart .blue{--accent:#92beff}[data-theme="dark"] .exam-chart .course{--accent:#c7a5ff}
 @media(max-width:600px){#exam-marks .two{grid-template-columns:1fr}.exam-chart{min-height:160px}}
+
+
+.dashboard-tools{justify-content:flex-end;margin-bottom:18px}
+@media(min-width:901px){aside{top:0;left:0}}
+.purple{background:#f0eafb;border-color:#c4afe8;--accent:#7654d9}
+.amber{background:#fff5dd;border-color:#e6cc8e;--accent:#936715}
+.teal{background:#e9f8f6;border-color:#a6d9d4;--accent:#217c79}
+.rose{background:#fceef6;border-color:#e5bbd3;--accent:#a14f7f}
+[data-theme="dark"] .purple{background:#352c48;border-color:#615079;--accent:#c7a5ff}
+[data-theme="dark"] .amber{background:#40351e;border-color:#75603b;--accent:#e8c478}
+[data-theme="dark"] .teal{background:#213c3d;border-color:#3f7271;--accent:#8cdbd1}
+[data-theme="dark"] .rose{background:#422b3b;border-color:#775069;--accent:#eea5cf}
+.exam-chart .purple{--accent:#7654d9}.exam-chart .amber{--accent:#936715}.exam-chart .teal{--accent:#217c79}.exam-chart .rose{--accent:#a14f7f}
+[data-theme="dark"] .exam-chart .purple{--accent:#c7a5ff}[data-theme="dark"] .exam-chart .amber{--accent:#e8c478}[data-theme="dark"] .exam-chart .teal{--accent:#8cdbd1}[data-theme="dark"] .exam-chart .rose{--accent:#eea5cf}
+#account-settings{width:min(560px,calc(100vw - 30px));background:white;color:inherit}
+[data-theme="dark"] #account-settings{background:#232636}

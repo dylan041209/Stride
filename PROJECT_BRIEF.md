@@ -28,3 +28,4 @@ Static website suitable for GitHub hosting. Browser storage for personal data in
 ## Collaboration
 
 Provide concrete check-ins on navigation, visual design, logging and rewards. The user has requested regular opportunities to steer the website.
+
