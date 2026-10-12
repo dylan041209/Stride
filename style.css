@@ -118,3 +118,40 @@ details summary{cursor:pointer;padding:8px 0;font-weight:600}
 [data-theme="dark"] .reward-delete{background:#4b2e3c;color:#ffb5c4}
 [data-theme="dark"] .reward-empty,[data-theme="dark"] #reward-editor{background:#232636;border-color:#5b496f}
 @media(max-width:600px){.personal-reward{padding:22px}.reward-status{font-size:11px}.reward-settings .reward-actions button{flex:1}.personal-reward .reward-actions button{flex:1}}
+
+/* Date tiles, compact completion controls and distinct deadline details. */
+.deadline-list{display:grid;gap:14px;margin-top:18px}
+.deadline-card{display:grid;grid-template-columns:68px minmax(0,1fr) auto;align-items:start;gap:20px;padding:22px;background:#fff;border:1px solid #e5dfef;border-left:4px solid var(--accent,var(--purple));border-radius:18px;min-width:0}
+.deadline-date{display:grid;justify-items:center;gap:2px;padding:10px 5px;background:#f2eef9;border-radius:13px;color:#614b83;text-decoration:none}
+.deadline-date>span{text-transform:uppercase;letter-spacing:1px;font-size:11px;font-weight:750}
+.deadline-date strong{font-size:28px;line-height:1.15;letter-spacing:-1px}
+.deadline-date small{font-size:11px}
+.deadline-body{min-width:0}
+.deadline-title{display:flex;align-items:flex-start;gap:12px;margin:2px 0 13px;font-size:18px;font-weight:700;line-height:1.4;cursor:pointer}
+.deadline-title input[type=checkbox]{appearance:auto;width:21px;height:21px;padding:0;margin:2px 0 0;flex-shrink:0;accent-color:var(--purple)}
+.deadline-title span{min-width:0;overflow-wrap:anywhere}
+.deadline-tags{display:flex;flex-wrap:wrap;gap:7px}
+.deadline-tags>span{font-size:12px;font-weight:650;line-height:1.4;border-radius:9px;padding:5px 9px;overflow-wrap:anywhere;max-width:100%}
+.deadline-subject{color:var(--accent,var(--purple));background:#f4f1f9}
+.deadline-type{background:#f1f2f7;color:#5f6174}
+.deadline-priority.priority-high{background:#ffe8ee;color:#a63151}
+.deadline-priority.priority-normal{background:#edf1fc;color:#445f9d}
+.deadline-priority.priority-low{background:#e8f5ee;color:#326d4d}
+.deadline-status{font-size:13px;color:#777386;margin:12px 0 0;line-height:1.5}
+.deadline-overdue{color:#a63151;font-weight:650}
+.deadline-remove{font-size:13px;min-height:44px;align-self:center}
+.deadline-complete{border-left-color:#75a28b}
+.deadline-complete .deadline-title span{text-decoration:line-through;color:#777386}
+.deadline-complete .deadline-status{color:#326d4d;font-weight:650}
+[data-theme="dark"] .deadline-card{background:#252838;border-color:#444259;border-left-color:var(--accent,var(--purple))}
+[data-theme="dark"] .deadline-date{background:#3b324d;color:#e3d0ff}
+[data-theme="dark"] .deadline-subject{background:#363244}
+[data-theme="dark"] .deadline-type{background:#373b4d;color:#d1d3e4}
+[data-theme="dark"] .deadline-priority.priority-high{background:#502b3b;color:#ffb2c7}
+[data-theme="dark"] .deadline-priority.priority-normal{background:#303d59;color:#b8cdff}
+[data-theme="dark"] .deadline-priority.priority-low{background:#2a4437;color:#a0dfb9}
+[data-theme="dark"] .deadline-status,[data-theme="dark"] .deadline-complete .deadline-title span{color:#bab7cd}
+[data-theme="dark"] .deadline-overdue{color:#ffb2c7}
+[data-theme="dark"] .deadline-complete{border-left-color:#8adbaa}
+[data-theme="dark"] .deadline-complete .deadline-status{color:#a0dfb9}
+@media(max-width:600px){.deadline-card{grid-template-columns:54px minmax(0,1fr);gap:14px;padding:18px}.deadline-date strong{font-size:25px}.deadline-title{font-size:16px;gap:10px}.deadline-remove{grid-column:2;justify-self:start}.deadline-tags>span{font-size:11px}}
