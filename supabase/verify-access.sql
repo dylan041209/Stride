@@ -44,5 +44,7 @@ do $$ begin
   exception when insufficient_privilege then null; end;
 end $$;
 reset role;
+select 'PASS: account isolation, verification and conflict checks passed.' as result;
 rollback;
--- Success with no errors means the isolation assertions passed.
+-- The PASS row appears only after the assertions above. Run the WHOLE script;
+-- the final ROLLBACK removes all temporary users and records.
