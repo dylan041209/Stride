@@ -19,6 +19,7 @@ rpc:async(name,args)=>{window.rpcCalls=(window.rpcCalls||0)+1;const user=getUser
 };}};`;
 (async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url='http://127.0.0.1:'+server.address().port+'/';const browser=await chromium.launch({headless:true,channel:process.env.STRIDE_BROWSER_CHANNEL||undefined});const context=await browser.newContext({viewport:{width:1440,height:1000}});await context.route('https://cdn.jsdelivr.net/**',route=>route.fulfill({contentType:'text/javascript',body:stub}));const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
 await require('./legal.cjs')(page,url,'test-results');
+await require('./motion.cjs')(page,url,stub,'test-results');
 await page.goto(url+'#history');await page.waitForSelector('#auth-form');if(await page.locator('#tracker-shell').isVisible())throw Error('Anonymous history is visible');
 await page.goto(url+'Stride.html');await page.waitForURL('**/index.html');await page.waitForSelector('#auth-root');if(await page.locator('#tracker-shell').isVisible())throw Error('Standalone file bypassed sign-in');
 await require('./signin-errors.cjs')(page,url,'test-results');
