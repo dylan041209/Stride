@@ -8,6 +8,8 @@ In your Supabase project, open **SQL Editor → New query**. Copy the entire con
 
 Then run [supabase/verify-approved-emails.sql](supabase/verify-approved-emails.sql) the same way. The expected result is **PASS: approved-email rules and list permissions**. The temporary test entries are rolled back, and no emails are sent.
 
+Use the updated version if an earlier copy gave `permission denied to set role "supabase_auth_admin"`. The hosted check now runs the rule as its owner and inspects the grants/RLS policy without impersonating internal roles. It does not alter role memberships or weaken the rule. A passing result still needs the live signup test in step 4 after enabling the hook.
+
 ## 2. Add approved addresses privately
 
 Open **Table Editor**, select **stride_approved_emails**, and choose **Insert row**:
