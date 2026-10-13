@@ -27,3 +27,21 @@
 .auth-page .form-card>p.auth-legal-note{font-size:12px;line-height:1.7;color:var(--muted);margin:16px 0 20px}
 .auth-page .auth-legal-note a{text-decoration:underline;text-underline-offset:3px;font-size:12px}
 @media(max-width:600px){.auth-page .site-legal-footer{margin:25px 22px 0;padding:18px 0;gap:12px}.auth-page .site-legal-footer>span{width:100%;margin-left:0}}
+
+/* Keep the welcome content inset and independent of tracker hero styles. */
+.auth-page .hero{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(28px,3.5vw,48px);padding:clamp(28px,3.5vw,48px);border:1px solid #e4daef;border-radius:32px;background:linear-gradient(120deg,#f0eafa,#fbf3f0);color:var(--ink)}
+.auth-page .hero>section{min-width:0}
+.auth-page .hero h1{font-size:clamp(34px,4vw,52px);line-height:1.12;letter-spacing:-1.8px;margin:24px 0;color:var(--ink)}
+.auth-page .hero .lead{margin:0;font-size:17px;color:var(--muted)}
+.auth-page .hero .buttons{flex-wrap:wrap;gap:12px;margin-top:28px}
+.auth-page .hero button{color:#fff}
+.auth-page .hero button.secondary{background:#fff;color:var(--ink)}
+.auth-page .hero .footnote{margin:20px 0 0;color:var(--muted)}
+.auth-page .hero .art{height:auto;min-height:450px;padding:36px 24px 98px;border-radius:28px}
+.auth-page .hero .mini{width:min(320px,100%);transform:rotate(-3deg);flex-shrink:0}
+.auth-page .hero .art:before{width:min(350px,calc(100% - 32px));height:auto;aspect-ratio:1}
+.auth-page .hero .art:after{width:min(260px,calc(100% - 56px));height:auto;aspect-ratio:1}
+.auth-page .hero .float-pill{bottom:24px;left:24px;max-width:calc(100% - 48px);padding:14px 16px;line-height:1.5;transform:none}
+.auth-page .hero .float-pill svg{flex-shrink:0}
+@media(max-width:900px){.auth-page .hero{grid-template-columns:1fr;gap:32px}.auth-page .hero .art{max-width:480px;width:100%;justify-self:center}}
+@media(max-width:600px){.auth-page .hero{padding:26px 20px;gap:28px;border-radius:24px}.auth-page .hero h1{font-size:34px;letter-spacing:-1.2px}.auth-page .hero .lead{font-size:16px}.auth-page .hero .buttons{flex-direction:column;align-items:stretch}.auth-page .hero .art{min-height:420px;padding:36px 22px 98px;border-radius:22px}.auth-page .hero .mini{width:min(255px,100%);padding:19px}.auth-page .hero .float-pill{left:18px;bottom:20px;max-width:calc(100% - 36px);padding:12px;font-size:12px}.auth-page .hero .spark{right:16px;top:14px}}
