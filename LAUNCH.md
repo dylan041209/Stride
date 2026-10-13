@@ -8,7 +8,9 @@ Keep the account changes on this testing branch until both the live checks and t
 
 ## Legal drafts and public registration
 
-`terms.html` and `privacy.html` are review draft v0.1, prepared 12 October 2026, not final documents or accepted account terms. They are linked from signup/sign-in and a static footer, run without JavaScript, and make no external requests when read. `legal.css` supports mobile, system dark mode and printing. Do not remove the draft notice while unresolved items remain.
+The chosen first shared release is an approved-email friends trial, not open registration. Follow APPROVED_EMAIL_SETUP.md and verify the actual hook before sharing account signup. Known users can contact the project owner through their existing personal channel during this trial; the final public contact details remain unresolved. A restricted trial is not being treated as automatically outside data-protection law or provider terms. Custom SMTP and a suitable hosted URL still need configuration and live tests.
+
+`terms.html` and `privacy.html` are review draft v0.2, updated 13 October 2026, not final documents or accepted account terms. They are linked from signup/sign-in and a static footer, run without JavaScript, and make no external requests when read. `legal.css` supports mobile, system dark mode and printing. Do not remove the draft notice while unresolved items remain.
 
 Before public registration:
 

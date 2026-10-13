@@ -9,7 +9,7 @@ const notify=(event)=>callbacks.forEach(fn=>fn(event,{user:getUser()}));
 return {auth:{
 getUser:async()=>({data:{user:getUser()},error:null}),
 onAuthStateChange:fn=>{callbacks.push(fn);return {data:{subscription:{unsubscribe(){}}}};},
-signUp:async args=>{window.signupArgs=args;return {data:{session:null},error:null};},
+signUp:async args=>{window.signupArgs=args;return {data:{session:null},error:window.signupError||null};},
 resend:async()=>({error:null}),resetPasswordForEmail:async args=>{window.resetArgs=args;return {error:null};},
 updateUser:async args=>{window.passwordArgs=args;return {error:null};},
 signInWithPassword:async args=>{if(window.signInError)return {error:window.signInError};localStorage.setItem('test.user',JSON.stringify({id:uid,email:args.email,email_confirmed_at:new Date().toISOString()}));notify('SIGNED_IN');return {error:null};},
@@ -23,6 +23,7 @@ await require('./motion.cjs')(page,url,stub,'test-results');
 await page.goto(url+'#history');await page.waitForSelector('#auth-form');if(await page.locator('#tracker-shell').isVisible())throw Error('Anonymous history is visible');
 await page.goto(url+'Stride.html');await page.waitForURL('**/index.html');await page.waitForSelector('#auth-root');if(await page.locator('#tracker-shell').isVisible())throw Error('Standalone file bypassed sign-in');
 await require('./signin-errors.cjs')(page,url,'test-results');
+await require('./approved-signup.cjs')(page,url);
 await page.goto(url+'#signup');await page.waitForSelector('#auth-form');await page.locator('[name=name]').fill('Test');await page.locator('[name=email]').fill('test@example.com');for(const weak of ['weakpass','Example!','EXAMPLE!1','example!1','Example12','Ex!1']){await page.locator('[name=password]').fill(weak);if(await page.locator('[name=password]').evaluate(e=>e.checkValidity()))throw Error('Weak password accepted');}await page.locator('[name=password]').fill('Example!1');await page.locator('#auth-form button').click();await page.waitForURL('**#verify');if(await page.locator('#tracker-shell').isVisible())throw Error('Unverified signup entered tracker');
 await page.goto(url+'#signin');await page.waitForSelector('#auth-form');await page.locator('[name=email]').fill('test@example.com');await page.locator('[name=password]').fill('Example!');await page.locator('#auth-form button').click();await page.waitForSelector('#subject-grid');if(await page.locator('[data-subject]').count()!==21)throw Error('Missing subject choices');
 for(const name of ['Politics','Biology','Engineering'])await page.getByRole('button',{name,exact:false}).click();await page.locator('#continue-subjects').click();await page.waitForSelector('#finish-setup');

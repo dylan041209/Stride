@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {siteCallbacks,buildAuthConfig} from '../scripts/auth-config-plan.mjs';
+const root='https://study.example/Stride/';
+assert.deepEqual(siteCallbacks(root),siteCallbacks('https://study.example/Stride/index.html?flow=recovery#old'));
+assert.deepEqual(siteCallbacks(root),siteCallbacks('https://study.example/Stride'));
+const settings=buildAuthConfig(root,{uri_allow_list:'http://127.0.0.1:8837/?flow=confirm,http://127.0.0.1:8837/?flow=recovery'},'verified-preset');
+assert.equal(settings.uri_allow_list.split(',').length,6);
+assert(settings.uri_allow_list.includes('http://127.0.0.1:8837/?flow=recovery'));
+assert.equal(settings.mailer_autoconfirm,false);assert.equal(settings.password_min_length,8);
+assert.equal(buildAuthConfig(root,settings,'verified-preset').uri_allow_list,settings.uri_allow_list);
+assert.throws(()=>siteCallbacks('https://name:password@study.example/'));
+assert.throws(()=>siteCallbacks('http://public.example/'));
+assert.throws(()=>buildAuthConfig(root,{uri_allow_list:{}},'verified-preset'));
+console.log('Passed: root/index callback equivalence, all four flows, preserved localhost addresses, repeatability and rejected unsafe/unreadable configuration.');

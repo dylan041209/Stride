@@ -12,6 +12,8 @@ Then run `supabase/verify-access.sql` in the same SQL Editor. It checks owner-on
 
 ## 2. Configure authentication
 
+For the approved-email friends trial, follow [APPROVED_EMAIL_SETUP.md](APPROVED_EMAIL_SETUP.md): install the SQL rule, add the approved addresses privately in Table Editor, run its verification script and enable the Before User Created hook. Keep email/password signup enabled so approved friends can register. Existing account sign-in is unaffected. Installing the SQL without enabling the hook does not restrict signup.
+
 Enable email/password sign-in and keep email confirmation enabled. Set the minimum password length to 8. Choose the strongest character preset: uppercase, lowercase, a number and a special character. This matches the policy approved for Stride and the validation in its signup and password-reset forms.
 
 To apply the exact policy and URLs together, run `scripts/configure-supabase.mjs` with Node 22+ in your own environment, setting `SUPABASE_ACCESS_TOKEN` privately and passing the hosted website URL. The token is a Supabase personal access token with permission to configure this project, not the browser key. Never put it in config.js, source control or chat. Example command after privately setting that variable:
@@ -19,6 +21,8 @@ To apply the exact policy and URLs together, run `scripts/configure-supabase.mjs
 ```
 node scripts/configure-supabase.mjs https://dylan041209.github.io/Stride/
 ```
+
+The command above now prints a plan only. Inspect it, then add `--apply` to change the project from your own environment. The helper reads and preserves existing redirects, including working localhost URLs, and adds all four callbacks. It does not configure SMTP or decide whether signups should be public.
 
 If you configure settings manually, set Authentication > URL Configuration > Site URL to the hosted address. Allow all four exact callback URLs:
 

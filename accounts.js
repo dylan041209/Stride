@@ -25,15 +25,16 @@ window.StrideAccount = (() => {
   function showAuthError(form,error){
     const panel=form.isConnected&&form.querySelector('#auth-error');
     if(!panel){message(error.message||'Something went wrong. Please try again.',true);return;}
-    const signin=form.dataset.authScreen==='signin',invalid=signin&&error.code==='invalid_credentials';
+    const signin=form.dataset.authScreen==='signin',invalid=signin&&error.code==='invalid_credentials',unapproved=!signin&&String(error.message||'').includes('STRIDE_EMAIL_NOT_APPROVED');
     let title=signin?'Couldn’t sign you in':'Couldn’t create your account',text=error.message||'Please try again in a moment.';
-    if(invalid)text='The email address or password is incorrect. Check both and try again.';
+    if(unapproved){title='Email not approved yet';text='Ask Dylan to approve the email address you’re using, then try again.';}
+    else if(invalid)text='The email address or password is incorrect. Check both and try again.';
     else if(error.code==='email_not_confirmed'){title='Verify your email first';text='Check your inbox and spam folder for the verification link, then try signing in again.';}
     else if(error.code==='over_request_rate_limit'||error.code==='over_email_send_rate_limit'||error.status===429){title='Too many attempts';text='Please wait before trying again.';}
     else if(error.name==='AuthRetryableFetchError'||error.name==='TypeError'){title='Couldn’t connect';text='Check your internet connection and try again.';}
     else if(signin)text='We couldn’t complete your sign-in. Please try again in a moment.';
     panel.querySelector('#auth-error-title').textContent=title;panel.querySelector('#auth-error-message').textContent=text;
-    if(invalid)for(const name of ['email','password']){const input=form.elements[name];input.setAttribute('aria-invalid','true');const ids=(input.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);if(!ids.includes('auth-error-message'))ids.push('auth-error-message');input.setAttribute('aria-describedby',ids.join(' '));}
+    for(const name of invalid?['email','password']:unapproved?['email']:[]){const input=form.elements[name];input.setAttribute('aria-invalid','true');const ids=(input.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);if(!ids.includes('auth-error-message'))ids.push('auth-error-message');input.setAttribute('aria-describedby',ids.join(' '));}
     message('');panel.hidden=false;panel.focus({preventScroll:true});panel.scrollIntoView({block:'nearest',behavior:'auto'});
   }
   function callbackURL(flow='confirm') { const url=new URL(location.href);url.search='';url.hash='';url.searchParams.set('flow',flow);return url.href; }

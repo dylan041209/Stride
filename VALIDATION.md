@@ -32,4 +32,8 @@ The legal checks verify access, draft status, links and presentation. They do no
 
 The user reported that supabase/verify-access.sql passed against their project on 12 October 2026. That transaction checks isolation, verified access, blocked direct writes and revision conflicts with temporary users, then rolls them back.
 
+Approved-email SQL was executed locally in PGlite/PostgreSQL with simulated Supabase roles. Checks pass for exact enabled addresses, case/space normalization, disabled addresses, outsiders on the same domain, unapproved aliases, anonymous signup, forged approval metadata, inaccessible lists/hooks and blocked self-approval. Repeated setup preserves the rule; verification test rows are rolled back. Browser checks cover the prominent rejection message, preserved inputs, email-only error association, clearing on edit and blocked onboarding. These checks do not activate the live Supabase hook or prove live email delivery; APPROVED_EMAIL_SETUP.md lists those steps.
+
+The configuration helper now plans without credentials or network calls by default. Its tests cover root/index callback equivalence, all four redirects, preserving localhost entries, repeatability and rejecting embedded credentials or unreadable old settings. Applying the plan still requires a private management token and an explicit --apply flag in the owner's environment.
+
 Still to validate live after setup: owner read/write rules using two actual signed-in users, the configured server password policy, verification and recovery email delivery, and true cross-device saving. Do not advertise registration until these checks and the public terms/privacy information are ready.
