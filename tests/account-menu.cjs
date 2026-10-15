@@ -34,7 +34,8 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   for(const key of ['sessions','courses','tasks','plans','topics','rewards','goal'])assert.deepEqual(after[key],before[key],'Account save changed '+key);
   assert.equal(await page.locator('#account-name').innerText(),'Alex & <Study>');assert.equal(await page.locator('#account-settings img').count(),0,'Name was interpreted as HTML');
   await page.screenshot({path:path.join(screenshotDir,'stride-account-settings-light.png'),fullPage:true});
-  await page.locator('#close-settings').click();assert(await page.locator('#account-menu summary').evaluate(el=>el===document.activeElement),'Closing settings loses focus');
+  await page.locator('#close-settings').click();await page.waitForFunction(()=>document.querySelector('#account-menu summary')===document.activeElement);
+  await open('profile');await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.getElementById('account-settings').open&&document.querySelector('#account-menu summary')===document.activeElement);
   await page.locator('#account-menu summary').click();await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-light.png'),fullPage:true});await page.keyboard.press('Escape');
   await page.reload();await page.waitForSelector('#content .hero');
   assert(await page.locator('#content .card.teal').filter({hasText:'Politics'}).count(),'Colour did not survive reload');

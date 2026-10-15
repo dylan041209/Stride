@@ -187,7 +187,7 @@ form.onsubmit=async e=>{
  catch{message('Changes could not be synced. Check the sync message at the bottom of the page.',true);}
  finally{controls.forEach(control=>control.disabled=false);button.textContent='Save changes';}
 };
-$('#close-settings').onclick=()=>$('#account-settings').close();
+$('#close-settings').onclick=()=>{$('#account-settings').close();$('#account-menu summary')?.focus();};
 }
 function migrateBackup(incoming){
 const aliases={Business:'Business Studies',IT:'ICT'};
