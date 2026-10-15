@@ -65,7 +65,6 @@ details summary{cursor:pointer;padding:8px 0;font-weight:600}
 @media(max-width:600px){#exam-marks .two{grid-template-columns:1fr}.exam-chart{min-height:160px}}
 
 
-.dashboard-tools{justify-content:flex-end;margin-bottom:18px}
 @media(min-width:901px){aside{top:0;left:0}}
 .purple{background:#f0eafb;border-color:#c4afe8;--accent:#7654d9}
 .amber{background:#fff5dd;border-color:#e6cc8e;--accent:#936715}
@@ -77,8 +76,63 @@ details summary{cursor:pointer;padding:8px 0;font-weight:600}
 [data-theme="dark"] .rose{background:#422b3b;border-color:#775069;--accent:#eea5cf}
 .exam-chart .purple{--accent:#7654d9}.exam-chart .amber{--accent:#936715}.exam-chart .teal{--accent:#217c79}.exam-chart .rose{--accent:#a14f7f}
 [data-theme="dark"] .exam-chart .purple{--accent:#c7a5ff}[data-theme="dark"] .exam-chart .amber{--accent:#e8c478}[data-theme="dark"] .exam-chart .teal{--accent:#8cdbd1}[data-theme="dark"] .exam-chart .rose{--accent:#eea5cf}
-#account-settings{width:min(560px,calc(100vw - 30px));background:white;color:inherit}
+#account-settings{width:min(860px,calc(100vw - 30px));max-width:860px;background:#f6f5fb;color:inherit}
 [data-theme="dark"] #account-settings{background:#232636}
+
+/* Account menu keeps personal settings together in the top-right corner. */
+#account-control{position:relative;flex-shrink:0}
+.account-menu{position:relative}
+.account-menu>summary{display:flex;align-items:center;justify-content:center;gap:9px;list-style:none;cursor:pointer;min-height:46px;padding:7px 12px;border:1px solid #dfd7ee;border-radius:13px;background:#fff;font-size:14px;font-weight:700;color:#4e3c69}
+.account-menu>summary::-webkit-details-marker{display:none}
+.account-menu>summary:focus-visible{outline:3px solid #b49bee;outline-offset:3px}
+.account-menu-avatar{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#eee6fc;color:#6c46be;font-size:14px}
+.account-caret{font-size:18px;line-height:1;margin-left:3px}
+.account-menu[open] .account-caret{transform:rotate(180deg)}
+.account-menu-panel{position:absolute;z-index:50;right:0;top:calc(100% + 10px);width:min(300px,calc(100vw - 46px));padding:10px;border:1px solid #e5deef;border-radius:18px;background:#fff;box-shadow:0 14px 45px #34244524;color:#263143}
+.account-menu-identity{display:grid;gap:5px;padding:12px 12px 17px;overflow-wrap:anywhere}
+.account-menu-identity strong{font-size:16px;line-height:1.4}
+.account-menu-identity>span{font-size:12px;color:#727888;line-height:1.5}
+.account-menu-panel button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;padding:12px;border-radius:10px;text-align:left;background:transparent;color:inherit;font-size:14px}
+.account-menu-panel button:hover{background:#f2edf9;filter:none}
+.account-menu-panel button>span{color:#887a9d}
+.account-menu-divider{height:1px;background:#eee9f4;margin:8px 4px}
+.account-dialog-heading{align-items:center;margin:0 0 22px}
+.account-dialog-heading h2{margin:0;font-size:24px}
+#close-settings{width:40px;min-height:40px;padding:0;font-size:24px}
+.account-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:20px;align-items:start}
+.account-layout>.card{min-width:0;margin:0;padding:22px}
+.account-layout h2{font-size:20px;margin:0 0 12px}
+.account-layout .muted{line-height:1.65}
+.account-identity{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin:24px 0}
+.account-avatar{display:grid;place-items:center;flex-shrink:0;width:58px;height:58px;border-radius:18px;background:#eee5fc;color:#6c46be;font-size:25px;font-weight:800}
+.account-identity h3{font-size:21px;line-height:1.4;letter-spacing:-.3px;margin:0;overflow-wrap:anywhere}
+.account-email{overflow-wrap:anywhere;margin:6px 0 0;font-size:12px}
+#display-name-help{font-size:12px;margin:10px 0 0}
+.account-subject{min-width:0;border:1px solid #e7e0f0;border-radius:15px;padding:9px 14px 14px;margin:20px 0 0}
+.account-subject legend{padding:0 7px;color:#7b6c8b;font-size:12px;font-weight:750}
+.account-subject-fields{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px}
+.account-subject-fields label{margin:5px 0 12px;font-size:12px}
+.account-subject-fields select{min-width:0;min-height:44px;font-size:13px;padding:10px 6px}
+.account-subject-preview{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:6px 10px;border:1px solid transparent;border-radius:9px;font-size:12px;font-weight:650;color:var(--accent)}
+.account-subject-preview>span:first-child{width:9px;height:9px;flex-shrink:0;border-radius:50%;background:var(--accent)}
+.account-subject-preview>span:last-child{overflow-wrap:anywhere}
+.account-save{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 2px}
+#account-feedback{font-size:13px;line-height:1.6;margin:0;color:#407051;min-height:22px;overflow-wrap:anywhere}
+#account-feedback.account-error{color:#b33751}
+#save-account{flex-shrink:0;min-height:46px}
+#account-form [aria-invalid="true"]{border-color:#c24b60;outline:2px solid #e6a7b2;outline-offset:1px}
+#account-form :disabled{opacity:.65;cursor:wait}
+[data-theme="dark"] .account-menu>summary,[data-theme="dark"] .account-menu-panel{background:#262a3b;border-color:#4c425e;color:#eee9f8}
+[data-theme="dark"] .account-menu-avatar,[data-theme="dark"] .account-avatar{background:#443357;color:#d9c1ff}
+[data-theme="dark"] .account-menu-panel button{color:#eee9f8}
+[data-theme="dark"] .account-menu-panel button:hover{background:#3a324b}
+[data-theme="dark"] .account-menu-identity>span,[data-theme="dark"] .account-menu-panel button>span,[data-theme="dark"] .account-subject legend{color:#bdb2cd}
+[data-theme="dark"] .account-menu-divider,[data-theme="dark"] .account-subject{border-color:#4a425a}
+[data-theme="dark"] .account-menu-divider{background:#4a425a}
+[data-theme="dark"] #account-feedback{color:#a1ddb6}
+[data-theme="dark"] #account-feedback.account-error{color:#ffadbf}
+@media(max-width:650px){#account-settings{padding:20px}.account-layout{grid-template-columns:minmax(0,1fr);gap:16px}.account-layout>.card{padding:18px}.account-identity{flex-direction:row;align-items:center;gap:12px;margin:20px 0}.account-identity>div{min-width:0}.account-save{flex-direction:column;align-items:stretch;gap:12px}.account-subject-fields{grid-template-columns:minmax(0,1fr)}.account-subject-fields label{margin-bottom:7px}.account-subject-preview{margin-top:5px}}
+@media(max-width:600px){#account-control{flex:1}.account-menu>summary{font-size:13px;min-height:44px}.header-actions>#log,.header-actions>#theme-toggle{flex:1;min-height:44px}.account-menu-panel button{flex:none;font-size:14px}.account-menu-panel{width:min(300px,calc(100vw - 46px))}}
 
 /* Personal rewards stay readable, editable and inviting in both themes. */
 .reward-settings .card{min-width:0}

@@ -38,4 +38,18 @@ The owner reported that the setup SQL completed, but the original hosted verific
 
 The configuration helper now plans without credentials or network calls by default. Its tests cover root/index callback equivalence, all four redirects, preserving localhost entries, repeatability and rejecting embedded credentials or unreadable old settings. Applying the plan still requires a private management token and an explicit --apply flag in the owner's environment.
 
-Still to validate live after setup: owner read/write rules using two actual signed-in users, the configured server password policy, verification and recovery email delivery, and true cross-device saving. Do not advertise registration until these checks and the public terms/privacy information are ready.
+## Owner-reported live checks
+
+On 13 October 2026, the owner reported completing the corrected SQL verification, adding approved addresses and enabling the Before User Created hook. They reported that unapproved signup was rejected, approved signup/verification/onboarding worked, and existing-account sign-in continued to work. These are owner-reported results, not independently observed live requests.
+
+On 14 October 2026, the owner reported that the same-account saved-progress check worked in a separate browser and that password recovery still worked. They also reiterated that email verification had already been confirmed. Email verification and password recovery are complete in the owner-reported checks; provider configuration has not been independently inspected. The preview remains local; a different-device check is deferred until suitable hosting is configured.
+
+Still to validate live: owner read/write rules using two actual signed-in users, the configured server password policy, and true cross-device saving after hosting. Confirm that verification/reset callbacks still work at the hosted URL when it is introduced. Do not advertise registration until these checks and the public terms/privacy information are ready.
+
+## Account dropdown — 15 October 2026
+
+The Account control is a top-right dropdown, not another navigation tab. Display name and Subjects & colours open a focused account-settings dialog; Sign out uses the existing account save/unsynced-work protection. The separate dashboard subject/settings buttons and header sign-out button are removed.
+
+Local Edge tests pass for outside-click/Escape dismissal, focus when opening/closing settings, initial signup-name fallback, blank-name and duplicate-subject rejection without writes, escaped name rendering, saved subject/colour/name changes applied immediately, reload/sign-out/sign-in persistence, preservation of all study records and goals, archived history when switching subjects, restored colours when reselecting a subject, imported backups preserving the current account name, and an offline save that stays pending rather than reporting success. A cancelled sign-out keeps unsynced work accessible; Retry sync then saves it. Desktop, 970px laptop, 390px mobile and 320px phone layouts have no horizontal overflow. Light/dark menu and settings screenshots use simulated accounts only.
+
+The complete browser suite, auth-configuration tests and approved-email SQL tests pass locally. A separate local PostgreSQL check confirms the new optional displayName property is accepted by the existing stride_valid_state function; no database migration is needed. The display name is saved with owner-only Stride state rather than updating authentication metadata. The Privacy draft documents this distinction. Live signed-in use of the dropdown has not been independently tested.

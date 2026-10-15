@@ -19,17 +19,17 @@ Enable email/password sign-in and keep email confirmation enabled. Set the minim
 To apply the exact policy and URLs together, run `scripts/configure-supabase.mjs` with Node 22+ in your own environment, setting `SUPABASE_ACCESS_TOKEN` privately and passing the hosted website URL. The token is a Supabase personal access token with permission to configure this project, not the browser key. Never put it in config.js, source control or chat. Example command after privately setting that variable:
 
 ```
-node scripts/configure-supabase.mjs https://dylan041209.github.io/Stride/
+node scripts/configure-supabase.mjs https://stride-a81.pages.dev/
 ```
 
 The command above now prints a plan only. Inspect it, then add `--apply` to change the project from your own environment. The helper reads and preserves existing redirects, including working localhost URLs, and adds all four callbacks. It does not configure SMTP or decide whether signups should be public.
 
 If you configure settings manually, set Authentication > URL Configuration > Site URL to the hosted address. Allow all four exact callback URLs:
 
-- `https://dylan041209.github.io/Stride/?flow=confirm`
-- `https://dylan041209.github.io/Stride/?flow=recovery`
-- `https://dylan041209.github.io/Stride/index.html?flow=confirm`
-- `https://dylan041209.github.io/Stride/index.html?flow=recovery`
+- `https://stride-a81.pages.dev/?flow=confirm`
+- `https://stride-a81.pages.dev/?flow=recovery`
+- `https://stride-a81.pages.dev/index.html?flow=confirm`
+- `https://stride-a81.pages.dev/index.html?flow=recovery`
 
 Replace the example address with the real deployment address if it differs. Add matching localhost callback URLs separately for development. The website derives its callback address from its current URL. Auth email templates must preserve the configured redirect rather than hard-code an old domain.
 
@@ -57,7 +57,7 @@ The account branch's `Stride.html` forwards to the account-enabled index page. K
 
 Keep the same Supabase project. Change hosting/DNS, then set the new Site URL and exact confirmation/recovery callback URLs. Sign in again on the new domain and test new verification and reset emails. Online records follow the account; old browser-only records need export/import.
 
-Domain-change reminder recorded at the user's request on 12 October 2026. The current setup instructions use `https://dylan041209.github.io/Stride/`; the dashboard configuration has not been independently verified. When a new website URL is chosen:
+Domain-change reminder recorded at the user's request on 12 October 2026. The current setup instructions use `https://stride-a81.pages.dev/`; the dashboard configuration has not been independently verified. When a new website URL is chosen:
 
 - Update Supabase > Authentication > URL Configuration > Site URL to the new hosted address.
 - Replace or supplement all four redirect entries above with the corresponding addresses on the new URL, including the `index.html` variants. Keep the old entries only while they are needed for the transition, then remove them.
@@ -71,6 +71,6 @@ Google sign-in setup is currently deferred until the user has a contact email re
 
 Browser tests against a simulated Supabase client cover anonymous route guards, signup rules, verification gating, 21 subjects, resumed onboarding, goal scroll stability, dynamic subjects, exam scoring/graphs, achievements, saved colours, backup migration, conflict protection, account switching and recovery routing.
 
-The user reported a passing result from supabase/verify-access.sql on 12 October 2026. Real email delivery, live password policy, isolation using actual signed-in accounts and cross-device saving still need verification against the configured Supabase project. This is a testing branch, not a completed public launch. Terms and Privacy pages now exist as explicitly labelled review drafts. Resolve the operator/contact, hosting, children, storage, provider and operating-process requirements in LAUNCH.md before treating them as final or advertising registration. The GitHub Pages URLs above are existing configuration examples, not confirmation that Pages is suitable production hosting for accounts.
+The user reported a passing result from supabase/verify-access.sql on 12 October 2026. The owner has reported passing approved/unapproved signup, email verification, sign-in, password recovery and same-account saving across browsers. See VALIDATION.md for the reports and remaining live checks, including actual account separation and different-device saving. This is a testing branch, not a completed public launch. Terms and Privacy pages now exist as explicitly labelled review drafts. Resolve the operator/contact, hosting, children, storage, provider and operating-process requirements in LAUNCH.md before treating them as final or advertising registration. The Cloudflare Pages address above is the current hosted preview; its live Supabase dashboard settings have not been independently inspected.
 
 Official references: https://supabase.com/docs/guides/auth/redirect-urls and https://supabase.com/docs/guides/database/postgres/row-level-security

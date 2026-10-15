@@ -8,14 +8,14 @@ Keep the account changes on this testing branch until both the live checks and t
 
 ## Legal drafts and public registration
 
-The chosen first shared release is an approved-email friends trial, not open registration. Follow APPROVED_EMAIL_SETUP.md and verify the actual hook before sharing account signup. Known users can contact the project owner through their existing personal channel during this trial; the final public contact details remain unresolved. A restricted trial is not being treated as automatically outside data-protection law or provider terms. Custom SMTP and a suitable hosted URL still need configuration and live tests.
+The chosen first shared release is an approved-email friends trial, not open registration. Follow APPROVED_EMAIL_SETUP.md and verify the actual hook before sharing account signup. Known users can contact the project owner through their existing personal channel during this trial; the final public contact details remain unresolved. A restricted trial is not being treated as automatically outside data-protection law or provider terms. The owner reported that the Cloudflare Pages preview at https://stride-a81.pages.dev/ became accessible on 14 October 2026, and has confirmed verification and recovery in their tests. The hosted callback configuration and the remaining live checks still need confirmation; the SMTP provider settings have not been independently inspected.
 
-`terms.html` and `privacy.html` are review draft v0.2, updated 13 October 2026, not final documents or accepted account terms. They are linked from signup/sign-in and a static footer, run without JavaScript, and make no external requests when read. `legal.css` supports mobile, system dark mode and printing. Do not remove the draft notice while unresolved items remain.
+`terms.html` remains review draft v0.2 (13 October 2026); `privacy.html` is review draft v0.3 (15 October 2026), updated to explain the editable display name. They are not final documents or accepted account terms. They are linked from signup/sign-in and a static footer, run without JavaScript, and make no external requests when read. `legal.css` supports mobile, system dark mode and printing. Do not remove the draft notice while unresolved items remain.
 
 Before public registration:
 
 - Confirm the responsible legal operator/controller and applicable provider agreements; supply monitored contact details and check any further operator disclosures required.
-- Review the age-13 minimum, children's privacy risks and proportionate age assurance. Minimise signup information: the currently required name is unused by the tracker.
+- Review the age-13 minimum, children's privacy risks and proportionate age assurance. Review the necessity of requiring a signup name; it now initially fills the editable private display name in Account settings.
 - Document the final lawful grounds, provider arrangements, regional processing and international-transfer safeguards; confirm the production verification/reset email service.
 - Approve retention periods and implement the corresponding processes, including inactivity notices, live account deletion, provider backup/log limits and rights/complaints handling. The 30-day/90-day/24-month periods in the drafts are proposals, not current automation.
 - Review each browser-storage purpose under the applicable rules. Add a way to object to remembering appearance and decide on controls/expiry for local study copies that survive sign-out.

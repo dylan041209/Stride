@@ -43,7 +43,7 @@ module.exports=async function testRewards(page,url,screenshotDir='outputs'){
   await page.locator('#reward-form [name=level]').fill('5');
   await page.locator('#reward-form button').click();
   await cloud(()=>Object.values(JSON.parse(localStorage.getItem('test.rows'))).some(r=>r.state.rewards.length===2));
-  await page.goto(url+'#dashboard');await page.waitForSelector('.dashboard-tools');
+  await page.goto(url+'#dashboard');await page.waitForSelector('#content .hero');
   assert((await page.locator('.card').filter({hasText:'Your overall level'}).textContent()).includes('Level 3'),'Dashboard level differs from rewards');
   await page.goto(url+'#rewards');await page.waitForSelector('#goal-form');
   fs.mkdirSync(screenshotDir,{recursive:true});
