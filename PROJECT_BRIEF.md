@@ -19,7 +19,9 @@ Record subject or online course, activity (Flashcards, Past papers, Note taking,
 
 ## Rewards
 
-Award 1 XP per study minute when a session is saved. Support overall and subject progress, daily quests and weekly goals. Achievements: First Steps, Paper Trail (5 past-paper sessions), Total Recall (10 flashcard sessions), Balanced Week (all school subjects in a week), Topic Revisited (same topic on 3 distinct dates), Five Hours Strong (300 minutes). Course study contributes to overall XP. Missing a day never removes XP.
+Award 1 XP per study minute when a session is saved. Each overall and subject level requires 100 XP; level 2 starts at 100 XP, level 3 at 200 XP, and so on. Support overall and subject progress, daily quests and weekly goals. Achievements: First Steps, Paper Trail (5 past-paper sessions), Total Recall (10 flashcard sessions), Balanced Week (all school subjects in a week), Topic Revisited (same topic on 3 distinct dates), Five Hours Strong (300 minutes). Course study contributes to overall XP. Missing a day never removes XP.
+
+Personal rewards appear as cards with their target level, XP progress, and available status. Users can edit the name and target level, or delete any reward including achieved rewards. Deleting a reward does not change study records or XP. The weekly goal can also be updated or removed; weekly bonuses continue to use the current goal.
 
 ## Initial delivery assumptions
 
@@ -28,3 +30,4 @@ Static website suitable for GitHub hosting. Browser storage for personal data in
 ## Collaboration
 
 Provide concrete check-ins on navigation, visual design, logging and rewards. The user has requested regular opportunities to steer the website.
+

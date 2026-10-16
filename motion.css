@@ -1,0 +1,10 @@
+/* React Bits SpotlightCard's pointer-light treatment, adapted to Stride cards.
+   Copyright (c) 2026 David Haz. See vendor/REACT-BITS-LICENSE.txt. */
+html[data-motion-dialog-open]{overflow:hidden}
+.lenis .entry{content-visibility:visible;contain-intrinsic-size:none}
+.stride-spotlight{position:relative;isolation:isolate;overflow:hidden;--spotlight-x:50%;--spotlight-y:50%;--spotlight-presence:0}
+.stride-spotlight>.spotlight-light{position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:var(--spotlight-presence);background:radial-gradient(circle 220px at var(--spotlight-x) var(--spotlight-y),color-mix(in srgb,var(--accent,var(--purple)) 12%,transparent),transparent 72%);transition:opacity 160ms ease}
+.stride-spotlight>:not(.spotlight-light){position:relative;z-index:1}
+.stride-spotlight:focus-within>.spotlight-light{opacity:1}
+[data-theme="dark"] .stride-spotlight>.spotlight-light{background:radial-gradient(circle 220px at var(--spotlight-x) var(--spotlight-y),color-mix(in srgb,var(--accent,var(--purple)) 16%,transparent),transparent 72%)}
+@media(prefers-reduced-motion:reduce),(pointer:coarse){.stride-spotlight>.spotlight-light{display:none;transition:none}}

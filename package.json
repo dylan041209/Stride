@@ -1,0 +1,9 @@
+{
+  "name": "stride",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Personal study tracker with Supabase accounts",
+  "scripts": { "test": "node tests/auth-config.mjs && node tests/approved-emails.mjs && node tests/accounts.cjs" },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.62.1", "@electric-sql/pglite": "0.5.9" }
+}

@@ -1,23 +1,25 @@
-# Run Stride
+# Launch Stride accounts
 
-Stride is a static website: index.html, style.css and app.js. It needs no dependencies or build step.
+This branch is for account integration testing. Follow ACCOUNT_SETUP.md to create storage, configure verified email/password sign-in, allow the confirmation/reset callbacks, and test the account flow before merging into main.
 
-## Preview
+The account-enabled index.html needs HTTP/HTTPS hosting. Stride.html forwards to index.html. No Next.js application server is required. Use the existing browser-only version to export your study backup before switching.
 
-Download the repository ZIP from Code > Download ZIP, extract it, and open index.html in a browser. Keep all three application files in the same folder. Use a consistent browser and address to retain the same saved data.
+Keep the account changes on this testing branch until both the live checks and the launch requirements below are resolved. The source repository can remain on GitHub. [GitHub Pages' published limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) say Pages sites should not be used for sensitive transactions such as sending passwords; confirm suitable hosting for public account sign-in before choosing the production deployment. Passing database checks alone does not settle hosting suitability.
 
-For hosted use, publish the repository root through a static hosting provider. GitHub Pages eligibility for private repositories depends on your GitHub plan. No hosting or public access has been enabled by this change.
+## Legal drafts and public registration
 
-## Personal records
+The chosen first shared release is an approved-email friends trial, not open registration. Follow APPROVED_EMAIL_SETUP.md and verify the actual hook before sharing account signup. Known users can contact the project owner through their existing personal channel during this trial; the final public contact details remain unresolved. A restricted trial is not being treated as automatically outside data-protection law or provider terms. The owner reported that the Cloudflare Pages preview at https://stride-a81.pages.dev/ became accessible on 14 October 2026, and has confirmed verification and recovery in their tests. The hosted callback configuration and the remaining live checks still need confirmation; the SMTP provider settings have not been independently inspected.
 
-Records live in this browser's local storage, not GitHub. Export a backup regularly. Import replaces current records after confirmation. Moving between a downloaded file and a hosted address does not automatically transfer data: export/import it. Clearing browser storage can remove records. Timer state is temporary: log before closing the tab.
+`terms.html` remains review draft v0.2 (13 October 2026); `privacy.html` is review draft v0.4 (16 October 2026), updated to describe browser display preferences and their remembering opt-out. They are not final documents or accepted account terms. They are linked from signup/sign-in and a static footer, run without JavaScript, and make no external requests when read. `legal.css` supports mobile, system dark mode and printing. Do not remove the draft notice while unresolved items remain.
 
-## First review
+Before public registration:
 
-Review all eight pages, the three subject colours and the mobile navigation. Log a test session, filter history, add a course, update its modules, run the timer and restore an exported backup. Remove test sessions afterward. XP is derived from saved sessions, so deleting a session recalculates progress. Weekly goal bonuses use the current goal.
+- Confirm the responsible legal operator/controller and applicable provider agreements; supply monitored contact details and check any further operator disclosures required.
+- Review the age-13 minimum, children's privacy risks and proportionate age assurance. Review the necessity of requiring a signup name; it now initially fills the editable private display name in Account settings.
+- Document the final lawful grounds, provider arrangements, regional processing and international-transfer safeguards; confirm the production verification/reset email service.
+- Approve retention periods and implement the corresponding processes, including inactivity notices, live account deletion, provider backup/log limits and rights/complaints handling. The 30-day/90-day/24-month periods in the drafts are proposals, not current automation.
+- Review each browser-storage purpose under the applicable rules. The display-preference remembering opt-out is available in Account → Settings; decide on controls/expiry for local study copies that survive sign-out.
+- Obtain appropriate UK legal review of the final documents and arrangements, particularly younger users and service responsibility. Add suitable final-Terms acceptance/version handling; reading a privacy notice is not blanket consent.
+- Finish the live checks in VALIDATION.md. Reconcile the pages with the resulting code and hosting, resolve every placeholder, set the actual effective date and remove draft-only indexing metadata when final.
 
-## Validation performed
-
-JavaScript syntax checked. All page rendering paths exercised against a minimal DOM stub. Daily and weekly XP, first-session, balanced-week and five-hour milestones checked; invalid negative session minutes rejected by backup validation.
-
-These checks do not replace a real browser review. Visual layout, browser persistence, file import/export and timer interactions have not been verified in an actual browser because the local command runner is unavailable.
+When changing the domain, preserve the same Supabase project and update Authentication URL Configuration before advertising. Review provider/hosting references in the Privacy Policy as part of the move.
