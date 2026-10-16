@@ -57,9 +57,9 @@ window.StrideAccountMenu = {
       keyboardFocus=true;
       if(event.key==='Escape'&&menu.open){close({instant:true,returnFocus:true});event.preventDefault();}
     },options);
-    reduced.addEventListener('change',()=>{
-      menu.dataset.instant='true';if(!expanded())finishClose();
-    },options);
+    const preferenceChanged=()=>{menu.dataset.instant='true';if(!expanded())finishClose();};
+    reduced.addEventListener('change',preferenceChanged,options);
+    window.addEventListener('stride:preferences-change',preferenceChanged,options);
     return {close,destroy(){clearTimeout(closing);abort.abort();}};
   }
 };

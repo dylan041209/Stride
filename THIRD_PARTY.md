@@ -17,3 +17,5 @@ While Lenis is active, history rows use normal layout rather than `content-visib
 ## Account dropdown design guidance
 
 The [animate](https://github.com/emilkowalski/skills/tree/main/skills/animate) and [emil-design-eng](https://github.com/emilkowalski/skills/tree/main/skills/emil-design-eng) agent skills informed the Account dropdown's spacing, top-right transform origin, short easing curve, interruptible transitions and keyboard/reduced-motion behaviour. They are installed in the developer's Codex environment, not bundled as website dependencies. The dropdown implementation is local CSS/JavaScript and adds no external requests, storage keys or account permissions.
+
+Account → Settings now lets users request reduced motion or disable mouse-wheel smoothing. These controls update the existing GSAP/Lenis/spotlight integration immediately; device reduced-motion requests take priority. The separate preferences.js/preferences.css files also implement browser-local appearance and accessibility controls. Their stride.preferences storage key and remembering opt-out are described in Privacy draft v0.4; no new runtime providers are introduced.

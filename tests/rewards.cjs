@@ -48,9 +48,9 @@ module.exports=async function testRewards(page,url,screenshotDir='outputs'){
   await page.goto(url+'#rewards');await page.waitForSelector('#goal-form');
   fs.mkdirSync(screenshotDir,{recursive:true});
   await page.locator('.personal-rewards').screenshot({path:path.join(screenshotDir,'stride-rewards-light.png')});
-  await page.locator('#theme-toggle').click();
+  await page.evaluate(()=>StridePreferences.set({theme:document.documentElement.dataset.theme==='dark'?'light':'dark'}));
   await page.locator('.personal-rewards').screenshot({path:path.join(screenshotDir,'stride-rewards-dark.png')});
-  await page.locator('#theme-toggle').click();
+  await page.evaluate(()=>StridePreferences.set({theme:document.documentElement.dataset.theme==='dark'?'light':'dark'}));
   await page.setViewportSize({width:390,height:844});
   await page.locator('.personal-rewards').scrollIntoViewIfNeeded();
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),'Rewards overflow on mobile');

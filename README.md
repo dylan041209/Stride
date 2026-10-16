@@ -4,7 +4,9 @@ A colourful personal study tracker. This testing branch adds Supabase sign-in, p
 
 Start with [ACCOUNT_SETUP.md](ACCOUNT_SETUP.md). The account-enabled preview is hosted at https://stride-a81.pages.dev/ from accounts-onboarding. The original main branch remains unchanged.
 
-The Account dropdown at the top right contains Display name, Subjects & colours, and Sign out. Save changes in Account settings to synchronise a private display name, three subject choices and their colours. Changing subjects preserves previous sessions in study history. Editing a display name does not change the sign-in email or the original signup metadata. Existing accounts initially use their signup name; no additional database setup is needed.
+The Account dropdown at the top right contains Display name, Subjects & colours, Settings, and Sign out. Save changes in Account settings to synchronise a private display name, three subject choices and their colours. Changing subjects preserves previous sessions in study history. Editing a display name does not change the sign-in email or the original signup metadata. Existing accounts initially use their signup name; no additional database setup is needed.
+
+Settings contains light/dark/device theme, reduced motion, smooth-wheel scrolling, larger text, stronger contrast, and links to the existing Privacy and Terms drafts. Preferences apply immediately and are remembered in this browser separately from account records. Turning off remembering removes saved display preferences and keeps them only for the current page. Existing stride.theme values remain compatible and migrate when a preference changes. Device reduced-motion requests are always respected. No database migration is needed.
 
 The first shared release uses owner-approved email addresses. [APPROVED_EMAIL_SETUP.md](APPROVED_EMAIL_SETUP.md) gives the one-time Supabase setup and explains how to add friends privately. The rule is enforced by Supabase only once its Before User Created hook is installed and enabled; website wording alone does not restrict signup.
 

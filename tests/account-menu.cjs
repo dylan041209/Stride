@@ -7,6 +7,7 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   const before=await cloud();
   await page.evaluate(()=>{const user=JSON.parse(localStorage.getItem('test.user'));user.user_metadata={display_name:'Test learner'};localStorage.setItem('test.user',JSON.stringify(user));});
   await page.reload();await page.waitForSelector('#content .hero');
+  await require('./preferences.cjs')(page,url,screenshotDir);
   await require('./account-menu-motion.cjs')(page);
   assert.equal(await page.locator('#nav a[href="#account"]').count(),0,'Account must be a dropdown, not a navigation tab');
   assert.equal(await page.locator('#subject-settings, #subject-colours, .header-actions>#signout').count(),0,'Old dashboard/header settings remain');
@@ -51,7 +52,7 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   assert.equal(await page.locator('[name=colour0]').inputValue(),'teal','Returning subject loses its colour');await submit();
   await page.setViewportSize({width:970,height:668});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Laptop layout overflows');
-  await page.locator('#close-settings').click();await page.locator('#theme-toggle').click();
+  await page.locator('#close-settings').click();await page.evaluate(()=>StridePreferences.set({theme:document.documentElement.dataset.theme==='dark'?'light':'dark'}));
   await page.locator('#account-menu summary').click();await page.locator('.account-menu-panel').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{}))));
   await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-dark.png'),fullPage:true});await page.keyboard.press('Escape');await open('subjects');
   await page.screenshot({path:path.join(screenshotDir,'stride-account-settings-dark.png'),fullPage:true});
@@ -60,7 +61,7 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   await page.screenshot({path:path.join(screenshotDir,'stride-account-settings-mobile.png'),fullPage:true});
   await page.setViewportSize({width:320,height:700});
   assert(await page.locator('#account-settings').evaluate(el=>el.scrollWidth<=el.clientWidth),'Small-phone settings overflow');
-  await page.locator('#close-settings').click();await page.locator('#theme-toggle').click();
+  await page.locator('#close-settings').click();await page.evaluate(()=>StridePreferences.set({theme:document.documentElement.dataset.theme==='dark'?'light':'dark'}));
   await page.locator('#account-menu summary').click();
   assert(await page.locator('.account-menu-panel').evaluate(el=>{const b=el.getBoundingClientRect();return b.left>=0&&b.right<=innerWidth;}),'Small-phone menu is outside screen');
   await page.setViewportSize({width:390,height:844});await page.locator('.account-menu-panel').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{}))));await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-mobile.png'),fullPage:true});await page.keyboard.press('Escape');

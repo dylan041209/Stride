@@ -3,17 +3,6 @@
 'use strict';
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-function setTheme(dark){
-document.documentElement.dataset.theme=dark?'dark':'light';
-const button=$('#theme-toggle');
-button.textContent=dark?'☀ Light mode':'☾ Dark mode';
-button.setAttribute('aria-pressed',String(dark));
-button.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
-try{localStorage.setItem('stride.theme',dark?'dark':'light');}catch(e){}
-}
-setTheme(document.documentElement.dataset.theme==='dark');
-$('#theme-toggle').onclick=()=>setTheme(document.documentElement.dataset.theme!=='dark');
-
 let subjects=[...account.state.selectedSubjects];const activities=['Flashcards','Past papers','Exam questions','Note taking','Homework'],colourNames=['purple','red','green','blue','amber','teal','rose'];
 const fresh=()=>({version:1,sessions:[],courses:[],tasks:[],plans:[],topics:[],rewards:[],goal:300});
 let data=validate(account.state);
@@ -156,9 +145,10 @@ function dismissAccountMenu(instant=false){if(accountMenuControls)accountMenuCon
 function renderAccountMenu(){
 accountMenuControls?.destroy();
 const title=displayName(),initial=Array.from(title)[0]||'✦';
-$('#account-control').innerHTML='<details id="account-menu" class="account-menu"><summary aria-label="Account menu" aria-controls="account-menu-panel"><span class="account-menu-avatar" aria-hidden="true">'+esc(initial.toUpperCase())+'</span><span>Account</span><span class="account-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span></summary><div id="account-menu-panel" class="account-menu-panel" data-native-scroll><div class="account-menu-identity"><span class="account-panel-avatar" aria-hidden="true">'+esc(initial.toUpperCase())+'</span><div><strong>'+esc(title||'Your account')+'</strong><span>'+esc(account.user?.email||'')+'</span></div></div><div class="account-menu-actions"><button type="button" data-account-edit="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.25"/><path d="M5.5 20v-1.5a6.5 6.5 0 0 1 13 0V20"/></svg><span>Display name</span></button><button type="button" data-account-edit="subjects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Z"/><path d="M12 6v14"/></svg><span>Subjects & colours</span></button></div><div class="account-menu-divider"></div><button type="button" id="signout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M13 8l4 4-4 4M8 12h13"/></svg><span>Sign out</span></button></div></details>';
+$('#account-control').innerHTML='<details id="account-menu" class="account-menu"><summary aria-label="Account menu" aria-controls="account-menu-panel"><span class="account-menu-avatar" aria-hidden="true">'+esc(initial.toUpperCase())+'</span><span>Account</span><span class="account-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span></summary><div id="account-menu-panel" class="account-menu-panel" data-native-scroll><div class="account-menu-identity"><span class="account-panel-avatar" aria-hidden="true">'+esc(initial.toUpperCase())+'</span><div><strong>'+esc(title||'Your account')+'</strong><span>'+esc(account.user?.email||'')+'</span></div></div><div class="account-menu-actions"><button type="button" data-account-edit="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.25"/><path d="M5.5 20v-1.5a6.5 6.5 0 0 1 13 0V20"/></svg><span>Display name</span></button><button type="button" data-account-edit="subjects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Z"/><path d="M12 6v14"/></svg><span>Subjects & colours</span></button><button type="button" id="open-display-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="var(--settings-icon-fill, #fff)"/><circle cx="15" cy="17" r="3" fill="var(--settings-icon-fill, #fff)"/></svg><span>Settings</span></button></div><div class="account-menu-divider"></div><button type="button" id="signout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M13 8l4 4-4 4M8 12h13"/></svg><span>Sign out</span></button></div></details>';
 accountMenuControls=window.StrideAccountMenu?.bind($('#account-menu'));
 document.querySelectorAll('[data-account-edit]').forEach(button=>button.onclick=()=>openAccountSettings(button.dataset.accountEdit));
+$('#open-display-settings').onclick=()=>{dismissAccountMenu(true);window.StridePreferences?.open(()=>$('#account-menu summary')?.focus({preventScroll:true}));};
 $('#signout').onclick=()=>{dismissAccountMenu(true);account.signOut();};
 }
 function openAccountSettings(section){

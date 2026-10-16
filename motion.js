@@ -5,6 +5,8 @@ window.StrideMotion = (() => {
   'use strict';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
+  const reduceRequested=()=>reduced.matches||Boolean(window.StridePreferences?.get().effectiveReducedMotion);
+  const smoothAllowed=()=>window.StridePreferences?.get().smoothScroll!==false;
   const views=new Map();
   let lenis=null,ticker=null,spotlight=null,pointerFrame=0,point=null;
   const visible=element=>{const rect=element.getBoundingClientRect();return rect.bottom>0&&rect.top<innerHeight&&rect.width>0;};
@@ -18,7 +20,7 @@ window.StrideMotion = (() => {
   function configureScroll(){
     if(ticker&&window.gsap)window.gsap.ticker.remove(ticker);
     ticker=null;if(lenis){lenis.destroy();lenis=null;}
-    if(!reduced.matches&&finePointer.matches&&window.Lenis){
+    if(!reduceRequested()&&smoothAllowed()&&finePointer.matches&&window.Lenis){
       lenis=new window.Lenis({autoRaf:!window.gsap,lerp:0.16,smoothWheel:true,syncTouch:false,
         prevent:node=>Boolean(node.closest?.('dialog, aside, textarea, select, input, [data-native-scroll]'))});
       if(window.gsap){ticker=time=>lenis?.raf(time*1000);window.gsap.ticker.lagSmoothing(0);window.gsap.ticker.add(ticker);}
@@ -47,7 +49,7 @@ window.StrideMotion = (() => {
     const widths=bars.map(bar=>bar.style.width);
     const state={key,context:null,widths};views.set(root,state);
     if(lenis){lenis.resize();updateDialog();}
-    if(reduced.matches||!window.gsap)return;
+    if(reduceRequested()||!window.gsap)return;
     state.context=window.gsap.context(()=>{
       if(changed){
         const selector=root.id==='auth-root'?'.hero > section,.benefits,.intro-panel,.form-card,.screen-head,.subject-layout,.goal-card,.goal-summary,.verify':':scope > .card,:scope > .hero,:scope > .grid > .card,:scope > .personal-rewards';
@@ -59,7 +61,7 @@ window.StrideMotion = (() => {
     },root);
   }
   document.addEventListener('pointermove',event=>{
-    if(reduced.matches||!finePointer.matches||event.pointerType!=='mouse')return;
+    if(reduceRequested()||!finePointer.matches||event.pointerType!=='mouse')return;
     const card=event.target.closest?.('.stride-spotlight');
     if(card!==spotlight){clearSpotlight();spotlight=card;}
     if(!card)return;point={x:event.clientX,y:event.clientY};
@@ -79,7 +81,8 @@ window.StrideMotion = (() => {
     clearSpotlight();for(const state of views.values()){state.context?.revert();state.context=null;}
     configureScroll();
   }
-  reduced.addEventListener('change',preferenceChanged);finePointer.addEventListener('change',preferenceChanged);
+  if(!window.StridePreferences)reduced.addEventListener('change',preferenceChanged);
+  addEventListener('stride:preferences-change',preferenceChanged);finePointer.addEventListener('change',preferenceChanged);
   configureScroll();
   addEventListener('pagehide',()=>{clearSpotlight();for(const state of views.values())state.context?.revert();if(ticker&&window.gsap)window.gsap.ticker.remove(ticker);lenis?.destroy();lenis=null;observer.disconnect();});
   addEventListener('pageshow',event=>{if(event.persisted){configureScroll();observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});}});
