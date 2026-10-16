@@ -13,3 +13,7 @@ Official sources: [GSAP](https://github.com/greensock/GSAP), [Lenis](https://git
 Reduced-motion preferences disable the entrances, animated progress feedback, spotlight and smooth-wheel controller. All content starts readable without animation, and missing motion libraries leave native scrolling and the core application available. View updates clean up previous animation contexts without replaying entrances on a same-page edit.
 
 While Lenis is active, history rows use normal layout rather than `content-visibility` skipping. This keeps scroll heights stable for keyboard Home/End navigation; native touch/reduced-motion views retain the earlier paint optimisation.
+
+## Account dropdown design guidance
+
+The [animate](https://github.com/emilkowalski/skills/tree/main/skills/animate) and [emil-design-eng](https://github.com/emilkowalski/skills/tree/main/skills/emil-design-eng) agent skills informed the Account dropdown's spacing, top-right transform origin, short easing curve, interruptible transitions and keyboard/reduced-motion behaviour. They are installed in the developer's Codex environment, not bundled as website dependencies. The dropdown implementation is local CSS/JavaScript and adds no external requests, storage keys or account permissions.

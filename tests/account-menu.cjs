@@ -7,11 +7,12 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   const before=await cloud();
   await page.evaluate(()=>{const user=JSON.parse(localStorage.getItem('test.user'));user.user_metadata={display_name:'Test learner'};localStorage.setItem('test.user',JSON.stringify(user));});
   await page.reload();await page.waitForSelector('#content .hero');
+  await require('./account-menu-motion.cjs')(page);
   assert.equal(await page.locator('#nav a[href="#account"]').count(),0,'Account must be a dropdown, not a navigation tab');
   assert.equal(await page.locator('#subject-settings, #subject-colours, .header-actions>#signout').count(),0,'Old dashboard/header settings remain');
   await page.locator('#account-menu summary').click();
   assert.equal(await page.locator('.account-menu-identity strong').innerText(),'Test learner','Signup display name is not used');
-  await page.locator('#title').click();assert.equal(await page.locator('#account-menu').getAttribute('open'),null,'Outside click does not close menu');
+  await page.locator('#title').click();await page.waitForFunction(()=>!document.getElementById('account-menu').open);
   await page.locator('#account-menu summary').click();await page.keyboard.press('Escape');
   assert.equal(await page.locator('#account-menu').getAttribute('open'),null,'Escape does not close menu');
   assert(await page.locator('#account-menu summary').evaluate(el=>el===document.activeElement),'Escape loses keyboard focus');
@@ -36,7 +37,9 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   await page.screenshot({path:path.join(screenshotDir,'stride-account-settings-light.png'),fullPage:true});
   await page.locator('#close-settings').click();await page.waitForFunction(()=>document.querySelector('#account-menu summary')===document.activeElement);
   await open('profile');await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.getElementById('account-settings').open&&document.querySelector('#account-menu summary')===document.activeElement);
-  await page.locator('#account-menu summary').click();await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-light.png'),fullPage:true});await page.keyboard.press('Escape');
+  await page.locator('#account-menu summary').click();await page.locator('.account-menu-panel').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{}))));await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-light.png'),fullPage:true});
+  const menuClip=await page.locator('.account-menu-panel').evaluate(el=>{const p=el.getBoundingClientRect(),t=el.closest('details').querySelector('summary').getBoundingClientRect();return {x:p.left-15,y:t.top-15,width:p.width+30,height:p.bottom-t.top+30};});
+  await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-detail.png'),clip:menuClip});await page.keyboard.press('Escape');
   await page.reload();await page.waitForSelector('#content .hero');
   assert(await page.locator('#content .card.teal').filter({hasText:'Politics'}).count(),'Colour did not survive reload');
   await open('subjects');assert.equal(await page.locator('#display-name').inputValue(),'Alex & <Study>');
@@ -48,7 +51,9 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   assert.equal(await page.locator('[name=colour0]').inputValue(),'teal','Returning subject loses its colour');await submit();
   await page.setViewportSize({width:970,height:668});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Laptop layout overflows');
-  await page.locator('#close-settings').click();await page.locator('#theme-toggle').click();await open('subjects');
+  await page.locator('#close-settings').click();await page.locator('#theme-toggle').click();
+  await page.locator('#account-menu summary').click();await page.locator('.account-menu-panel').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{}))));
+  await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-dark.png'),fullPage:true});await page.keyboard.press('Escape');await open('subjects');
   await page.screenshot({path:path.join(screenshotDir,'stride-account-settings-dark.png'),fullPage:true});
   await page.setViewportSize({width:390,height:844});
   assert(await page.locator('#account-settings').evaluate(el=>el.scrollWidth<=el.clientWidth),'Mobile settings overflow');
@@ -58,7 +63,7 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   await page.locator('#close-settings').click();await page.locator('#theme-toggle').click();
   await page.locator('#account-menu summary').click();
   assert(await page.locator('.account-menu-panel').evaluate(el=>{const b=el.getBoundingClientRect();return b.left>=0&&b.right<=innerWidth;}),'Small-phone menu is outside screen');
-  await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-mobile.png'),fullPage:true});await page.keyboard.press('Escape');
+  await page.setViewportSize({width:390,height:844});await page.locator('.account-menu-panel').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{}))));await page.screenshot({path:path.join(screenshotDir,'stride-account-menu-mobile.png'),fullPage:true});await page.keyboard.press('Escape');
   await page.setViewportSize({width:1440,height:1000});
   await open('profile');await page.locator('#display-name').fill('Alex learner');await page.evaluate(()=>window.failWrite=true);await page.locator('#save-account').click();
   await page.waitForFunction(()=>document.getElementById('account-feedback').textContent.includes('not synced yet'));
@@ -71,5 +76,9 @@ module.exports=async function checkAccountMenu(page,url,screenshotDir){
   assert.equal(await page.locator('#tracker-shell').isVisible(),false);
   await page.locator('#auth-form [name=email]').fill('test@example.com');await page.locator('#auth-form [name=password]').fill('Example!1');await page.locator('#auth-form button').click();await page.waitForSelector('#content .hero');
   await page.locator('#account-menu summary').click();assert.equal(await page.locator('.account-menu-identity strong').innerText(),'Alex learner','Name did not survive sign-out/sign-in');await page.keyboard.press('Escape');
+  await page.route('**/account-menu.js',route=>route.abort());await page.reload();await page.waitForSelector('#content .hero');
+  await page.locator('#account-menu summary').click();assert(await page.locator('[data-account-edit=profile]').isVisible(),'Missing animation enhancement hides account controls');
+  await page.locator('[data-account-edit=profile]').click();await page.waitForSelector('#account-settings[open]');await page.locator('#close-settings').click();
+  await page.unroute('**/account-menu.js');await page.reload();await page.waitForSelector('#content .hero');
   console.log('Passed: top-right account dropdown, keyboard/outside dismissal, name/colour/subject persistence, duplicate protection, preserved and archived progress, offline save/sign-out protection, responsive settings and sign-out/sign-in.');
 };

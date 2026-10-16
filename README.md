@@ -13,3 +13,5 @@ The first shared release uses owner-approved email addresses. [APPROVED_EMAIL_SE
 For browser tests: npm install, npx playwright install chromium, then npm test. These tests simulate Supabase; [VALIDATION.md](VALIDATION.md) lists the remaining live checks.
 
 Motion uses locally served, pinned GSAP and Lenis files, plus a React Bits SpotlightCard adaptation within the existing plain-JavaScript site. See [THIRD_PARTY.md](THIRD_PARTY.md) for versions, source attribution and reduced-motion/native-input behaviour.
+
+The Account dropdown uses interruptible CSS transitions: 180ms to open, 150ms to close, anchored to its top-right corner. Keyboard actions respond immediately; reduced-motion preferences use a short fade without sliding or scaling. The optional account-menu.js enhancement falls back to a native disclosure if unavailable.
